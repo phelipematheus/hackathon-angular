@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Agentes</title>
+</h:head>
+<h:body>
+	<h:form id="edicao">
+		<h:inputHidden value="#{tiposdeinfracaoMB.tipoInfracao.idTipoInfracao}" />
+    	<h:panelGrid columns="3" cellpadding="5">
+	    	 <p:outputLabel value="Descricao da infracao:"/>
+	    	 <p:inputText id="descricaoinfracao" value="#{tiposdeinfracaoMB.tipoInfracao.descricaoTipoInfracao}" required="true" requiredMessage="Campo obrigatório."/>
+	    	 <p:message for="descricaoinfracao"/>
+	    	 
+	    	 <p:outputLabel value="valor: "/>
+	    	 <p:inputNumber id="popup" value="#{tiposdeinfracaoMB.tipoInfracao.valor}" required="true" requiredMessage="Digite um valor."/>
+	    	 <p:message for="popup"/>
+    	 </h:panelGrid>    
+    	 <h:commandButton value="Salvar" action="#{tiposdeinfracaoMB.incluir()}" update="CadastrotipoInfracao"/>
+	</h:form>
+	<h:form  id="CadastrotipoInfracao">
+	<h1>Cadastro de Tipos de infracao</h1>
+		<p:dataTable value="#{tiposdeinfracaoMB.lista}" var="tipoinfracao" rendered="#{not empty tiposdeinfracaoMB.lista}" resizableColumns="true">
+			<p:column width="300">
+				<f:facet name="header">Descricao</f:facet>
+				<p:outputLabel value="#{tipoinfracao.descricaoTipoInfracao}"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">Valor</f:facet>
+				<p:outputLabel value="#{tipoinfracao.valor}"/>
+			</p:column>			
+			<p:column>
+				<h:commandLink action="#{tiposdeinfracaoMB.excluir()}"
+					onclick="if (!confirm('Confirma a exclusão do tipoinfracao #{tipoinfracao.descricaoTipoInfracao}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png"/>
+					<f:setPropertyActionListener target="#{tiposdeinfracaoMB.tipoinfracao}" value="#{tipoinfracao}" />
+				</h:commandLink>
+				<h:commandLink action="#{tiposdeinfracaoMB.editar()}">
+					<h:graphicImage library="imagens" name="editar16.png"/>
+					<f:setPropertyActionListener target="#{tiposdeinfracaoMB.tipoinfracao}" value="#{tipoinfracao}" />
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:link href="/index.jsf">Voltar</p:link>
+</h:body> 
+</html>

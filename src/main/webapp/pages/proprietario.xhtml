@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Proprietários</title>
+</h:head>
+<h:body>
+	<h:form id="edicao">
+		<h:inputHidden value="#{proprietarioMB.proprietario.cpfProprietario}" />
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="CPF:">
+				<p:inputText id="cpfProprietario"
+					value="#{proprietarioMB.proprietario.cpfProprietario}"
+					required="true" maxlength="11" requiredMessage="Campo obrigatório.">
+					<p:message for="nomeProprietario" />
+				</p:inputText>
+			</p:outputLabel>
+			<p:outputLabel value="Nome:">
+				<p:inputText id="nomeProprietario"
+					value="#{proprietarioMB.proprietario.nome}" required="true"
+					requiredMessage="Campo obrigatório.">
+					<p:message for="nomeProprietario" />
+				</p:inputText>
+			</p:outputLabel>
+			<p:outputLabel value="Endereço:">
+				<p:inputText id="enderecoProprietario"
+					value="#{proprietarioMB.proprietario.endereco}" required="true"
+					requiredMessage="Campo obrigatório.">
+					<p:message for="enderecoProprietario" />
+				</p:inputText>
+			</p:outputLabel>
+			<p:outputLabel value="Bairro:">
+				<p:inputText id="bairroProprietario"
+					value="#{proprietarioMB.proprietario.bairro}" required="true"
+					requiredMessage="Campo obrigatório.">
+					<p:message for="bairroProprietario" />
+				</p:inputText>
+			</p:outputLabel>
+			<p:outputLabel value="Cidade:">
+				<p:inputText id="cidadeProprietario"
+					value="#{proprietarioMB.proprietario.cidade}" required="true"
+					requiredMessage="Campo obrigatório.">
+					<p:message for="cidadeProprietario" />
+				</p:inputText>
+			</p:outputLabel>
+			<p:outputLabel value="UF:">
+				<p:selectOneMenu id="uf" value="#{proprietarioMB.proprietario.uf}"
+					required="true">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="AC" itemValue="AC" />
+					<f:selectItem itemLabel="AL" itemValue="AL" />
+					<f:selectItem itemLabel="AP" itemValue="AP" />
+					<f:selectItem itemLabel="AM" itemValue="AM" />
+					<f:selectItem itemLabel="BA" itemValue="BA" />
+					<f:selectItem itemLabel="CE" itemValue="CE" />
+					<f:selectItem itemLabel="DF" itemValue="DF" />
+					<f:selectItem itemLabel="ES" itemValue="ES" />
+					<f:selectItem itemLabel="GO" itemValue="GO" />
+					<f:selectItem itemLabel="MA" itemValue="MA" />
+					<f:selectItem itemLabel="MT" itemValue="MT" />
+					<f:selectItem itemLabel="MS" itemValue="MS" />
+					<f:selectItem itemLabel="MG" itemValue="MG" />
+					<f:selectItem itemLabel="PA" itemValue="PA" />
+					<f:selectItem itemLabel="PB" itemValue="PB" />
+					<f:selectItem itemLabel="PR" itemValue="PR" />
+					<f:selectItem itemLabel="PE" itemValue="PE" />
+					<f:selectItem itemLabel="PI" itemValue="PI" />
+					<f:selectItem itemLabel="RJ" itemValue="RJ" />
+					<f:selectItem itemLabel="RN" itemValue="RN" />
+					<f:selectItem itemLabel="RS" itemValue="RS" />
+					<f:selectItem itemLabel="RO" itemValue="RO" />
+					<f:selectItem itemLabel="RR" itemValue="RR" />
+					<f:selectItem itemLabel="SC" itemValue="SC" />
+					<f:selectItem itemLabel="SP" itemValue="SP" />
+					<f:selectItem itemLabel="SE" itemValue="SE" />
+					<f:selectItem itemLabel="TO" itemValue="TO" />
+					<p:message for="uf" />
+				</p:selectOneMenu>
+			</p:outputLabel>
+			<p:outputLabel value="Sexo:">
+				<p:selectOneMenu id="sexo"
+					value="#{proprietarioMB.proprietario.sexo}" required="true">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Feminino" itemValue="F" />
+					<p:message for="sexo" />
+				</p:selectOneMenu>
+			</p:outputLabel>
+
+			<p:outputLabel value="Nascimento:">
+				<p:calendar id="nascimento"
+					value="#{proprietarioMB.proprietario.dtNascimento}"
+					pattern="dd-MM-yyyy" mask="true">
+					<p:message for="nascimento" />
+				</p:calendar>
+			</p:outputLabel>
+
+		</h:panelGrid>
+		<h:commandButton value="Salvar" action="#{proprietarioMB.incluir()}" update="dataTable" />
+	</h:form>
+	<h:form id="dataTable">
+		<h1>Cadastro de Proprietários</h1>
+		<p:dataTable value="#{proprietarioMB.lista}" var="proprietario"
+			rendered="#{not empty proprietarioMB.lista}" resizableColumns="true">
+			<p:column width="300">
+				<f:facet name="header">CPF</f:facet>
+				<p:outputLabel value="#{proprietario.cpfProprietario}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<p:outputLabel value="#{proprietario.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Endereço</f:facet>
+				<p:outputLabel value="#{proprietario.endereco}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Bairro</f:facet>
+				<p:outputLabel value="#{proprietario.bairro}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Cidade</f:facet>
+				<p:outputLabel value="#{proprietario.cidade}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">UF</f:facet>
+				<p:outputLabel value="#{proprietario.uf}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Sexo</f:facet>
+				<p:outputLabel value="#{proprietario.sexo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nascimento</f:facet>
+				<p:outputLabel value="#{proprietario.dtNascimento}" />
+			</p:column>
+			<p:column>
+				<h:commandLink action="#{proprietarioMB.excluir()}"
+					onclick="if (!confirm('Confirma a exclusão do proprietário #{proprietario.nome}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png" />
+					<f:setPropertyActionListener target="#{proprietarioMB.proprietario}"
+						value="#{proprietario}" />
+				</h:commandLink>
+				<h:commandLink action="#{proprietarioMB.editar()}">
+					<h:graphicImage library="imagens" name="editar16.png" />
+					<f:setPropertyActionListener target="#{proprietarioMB.proprietario}"
+						value="#{proprietario}" />
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:link href="/index.jsf">Voltar</p:link>
+</h:body>
+</html>

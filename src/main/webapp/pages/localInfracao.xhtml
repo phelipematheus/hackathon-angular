@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Local da Infração</title>
+</h:head>
+	<h:body>
+	<h1>Adicionar um Local de infrações:</h1>
+		<h:form id="localInfracaoEdicao">
+			<h:inputHidden value="#{localInfracaoMB.localInfracao.idLocalInfracao}" />
+	    	<h:panelGrid columns="3" cellpadding="5">
+		    	 <p:outputLabel value="Descrição :"/>
+		    	 <p:inputText id="descricao" value="#{localInfracaoMB.localInfracao.descricaoLocalInfracao}" required="true" requiredMessage="Campo obrigatório."/>
+		    	 <p:message for="descricao"/>
+		    	 <p:outputLabel value="Velocidade permitida: "/>
+		    	 <p:inputText id="velocidadePermitida" value="#{localInfracaoMB.localInfracao.velocidadePermitida}" required="true" requiredMessage="Campo obrigatóio."/> Km/h
+		    	 <p:message for="velocidadePermitida"/>
+	    	 </h:panelGrid>    
+	    	 <h:commandButton value="Salvar" action="#{localInfracaoMB.incluir()}" update="ListaLocalInracao"/>
+		</h:form>
+		<h:form  id="ListaLocalInracao">
+		<h1>Lista de Local de infrações:</h1>
+			<p:dataTable value="#{localInfracaoMB.lista}" var="localInfracao" rendered="#{not empty localInfracaoMB.lista}" resizableColumns="true">
+				<p:column width="300">
+					<f:facet name="header">Descrição do loca da infração</f:facet>
+					<p:outputLabel value="#{localInfracao.descricaoLocalInfracao}"/>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Velocidade permitida</f:facet>
+					<p:outputLabel value="#{localInfracao.velocidadePermitida} Km/h"/>
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{localInfracaoMB.excluir()}"
+						onclick="if (!confirm('Confirma a exclusão do resitro?')) return false;">
+						<h:graphicImage library="imagens" name="excluir16.png"/>
+						<f:setPropertyActionListener target="#{localInfracaoMB.localInfracao}" value="#{localInfracao}" />
+					</h:commandLink>
+					<h:commandLink action="#{localInfracaoMB.editar()}">
+						<h:graphicImage library="imagens" name="editar16.png"/>
+						<f:setPropertyActionListener target="#{localInfracaoMB.localInfracao}" value="#{localInfracao}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<p:link href="/index.jsf">Voltar</p:link>
+	</h:body> 
+</html>

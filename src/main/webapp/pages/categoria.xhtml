@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Categorias de Veículos</title>
+</h:head>
+<h:body>
+	<h:form id="edicao">
+		<h:inputHidden value="#{categoriadeveiculosMB.categoria.idCategoria}" />
+    	<h:panelGrid columns="3" cellpadding="5">
+	    	 <p:outputLabel value="descricao:"/>
+	    	 <p:inputText id="descricaocategoria" value="#{categoriadeveiculosMB.categoria.descricaiCategoria}" required="true" requiredMessage="Campo obrigatório."/>
+	    	 <p:message for="descricaocategoria"/>
+	    	 
+    	 </h:panelGrid>    
+    	 <h:commandButton value="Salvar" action="#{categoriadeveiculosMB.incluir()}" update="CadastroCategoria"/>
+	</h:form>
+	<h:form  id="CadastroCategoria">
+	<h1>Cadastro de Categorias</h1>
+		<p:dataTable value="#{categoriadeveiculosMB.lista}" var="categoria" rendered="#{not empty categoriadeveiculosMB.lista}" resizableColumns="true">
+			<p:column width="300">
+				<f:facet name="header">Nome</f:facet>
+				<p:outputLabel value="#{categoria.descricaiCategoria}"/>
+			</p:column>			
+			<p:column>
+				<h:commandLink action="#{categoriadeveiculosMB.excluir()}"
+					onclick="if (!confirm('Confirma a exclusão do categoria #{categoria.descricaiCategoria}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png"/>
+					<f:setPropertyActionListener target="#{categoriadeveiculosMB.categoria}" value="#{categoria}" />
+				</h:commandLink>
+				<h:commandLink action="#{categoriadeveiculosMB.editar()}">
+					<h:graphicImage library="imagens" name="editar16.png"/>
+					<f:setPropertyActionListener target="#{categoriadeveiculosMB.categoria}" value="#{categoria}" />
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:link href="/index.jsf">Voltar</p:link>
+</h:body> 
+</html>

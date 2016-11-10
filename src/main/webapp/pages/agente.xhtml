@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Agentes</title>
+</h:head>
+<h:body>
+	<h:form id="edicao">
+		<h:inputHidden value="#{agenteMB.agente.idAgente}" />
+    	<h:panelGrid columns="3" cellpadding="5">
+	    	 <p:outputLabel value="Nome:"/>
+	    	 <p:inputText id="nomeAgente" value="#{agenteMB.agente.nome}" required="true" requiredMessage="Campo obrigatório."/>
+	    	 <p:message for="nomeAgente"/>
+	    	 
+	    	 <p:outputLabel value="Data da Contratação: "/>
+	    	 <p:calendar id="popup" value="#{agenteMB.agente.dtContratacao}" required="true" requiredMessage="Data inválida."/>
+	    	 <p:message for="popup"/>
+    	 </h:panelGrid>    
+    	 <p:commandButton value="Salvar" action="#{agenteMB.incluir()}" update="CadastroAgente"/>
+	</h:form>
+	<h:form  id="CadastroAgente">
+	<h1>Cadastro de Agentes</h1>
+		<p:dataTable value="#{agenteMB.lista}" var="agente" rendered="#{not empty agenteMB.lista}" resizableColumns="true">
+			<p:column width="300">
+				<f:facet name="header">Nome</f:facet>
+				<p:outputLabel value="#{agente.nome}"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">Data contratação</f:facet>
+				<p:outputLabel value="#{agente.dtContratacao}"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">Tempo de serviço</f:facet>
+				<p:outputLabel value="#{agente.tempoServico}"/>
+			</p:column>
+			<p:column>
+				<h:commandLink action="#{agenteMB.excluir()}"
+					onclick="if (!confirm('Confirma a exclusão do agente #{agente.nome}?')) return false;">
+					<h:graphicImage library="imagens" name="excluir16.png"/>
+					<f:setPropertyActionListener target="#{agenteMB.agente}" value="#{agente}" />
+				</h:commandLink>
+				<h:commandLink action="#{agenteMB.editar()}">
+					<h:graphicImage library="imagens" name="editar16.png"/>
+					<f:setPropertyActionListener target="#{agenteMB.agente}" value="#{agente}" />
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:link href="/index.jsf">Voltar</p:link>
+</h:body> 
+=======
+	<h:body>
+		<h:form id="edicao">
+			<h:inputHidden value="#{agenteMB.agente.idAgente}" />
+	    	<h:panelGrid columns="3" cellpadding="5">
+		    	 <p:outputLabel value="Nome:"/>
+		    	 <p:inputText id="nomeAgente" value="#{agenteMB.agente.nome}" required="true" requiredMessage="Campo obrigatório."/>
+		    	 <p:message for="nomeAgente"/>
+		    	 
+		    	 <p:outputLabel value="Data da Contratação: "/>
+		    	 <p:calendar id="popup" value="#{agenteMB.agente.dtContratacao}" required="true" requiredMessage="Data inválida."/>
+		    	 <p:message for="popup"/>
+	    	 </h:panelGrid>    
+	    	 <h:commandButton value="Salvar" action="#{agenteMB.incluir()}" update="CadastroAgente"/>
+		</h:form>
+		<h:form  id="CadastroAgente">
+		<h1>Cadastro de Agentes</h1>
+			<p:dataTable value="#{agenteMB.lista}" var="agente" rendered="#{not empty agenteMB.lista}" resizableColumns="true">
+				<p:column width="300">
+					<f:facet name="header">Nome</f:facet>
+					<p:outputLabel value="#{agente.nome}"/>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Data contratação</f:facet>
+					<p:outputLabel value="#{agente.dtContratacao}"/>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Tempo de serviço</f:facet>
+					<p:outputLabel value="#{agente.tempoServico}"/>
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{agenteMB.excluir()}"
+						onclick="if (!confirm('Confirma a exclusão do agente #{agente.nome}?')) return false;">
+						<h:graphicImage library="imagens" name="excluir16.png"/>
+						<f:setPropertyActionListener target="#{agenteMB.agente}" value="#{agente}" />
+					</h:commandLink>
+					<h:commandLink action="#{agenteMB.editar()}">
+						<h:graphicImage library="imagens" name="editar16.png"/>
+						<f:setPropertyActionListener target="#{agenteMB.agente}" value="#{agente}" />
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<p:link href="/index.jsf">Voltar</p:link>
+	</h:body> 
+>>>>>>> 45cc76f65823f5886e8940e76158107e0e27b2c7
+</html>
